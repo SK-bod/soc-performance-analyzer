@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="system_id_sim/altchip_id/altchip_id.v"
+   type="VERILOG"
+   library="system_id" />
+ <file path="system_id_sim/system_id.v" type="VERILOG" />
+ <topLevel name="system_id" />
+ <deviceFamily name="cyclonev" />
+</simPackage>

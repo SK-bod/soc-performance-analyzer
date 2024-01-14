@@ -5,7 +5,6 @@
 			hps_0_f2h_debug_reset_req_reset_n     : in    std_logic                     := 'X';             -- reset_n
 			hps_0_f2h_stm_hw_events_stm_hwevents  : in    std_logic_vector(27 downto 0) := (others => 'X'); -- stm_hwevents
 			hps_0_f2h_warm_reset_req_reset_n      : in    std_logic                     := 'X';             -- reset_n
-			hps_0_h2f_reset_reset_n               : out   std_logic;                                        -- reset_n
 			hps_0_hps_io_hps_io_emac1_inst_TX_CLK : out   std_logic;                                        -- hps_io_emac1_inst_TX_CLK
 			hps_0_hps_io_hps_io_emac1_inst_TXD0   : out   std_logic;                                        -- hps_io_emac1_inst_TXD0
 			hps_0_hps_io_hps_io_emac1_inst_TXD1   : out   std_logic;                                        -- hps_io_emac1_inst_TXD1
@@ -70,8 +69,8 @@
 			memory_mem_odt                        : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                         : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                      : in    std_logic                     := 'X';             -- oct_rzqin
-			reset_reset_n                         : in    std_logic                     := 'X';             -- reset_n
-			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0)                      -- export
+			pio_led_external_connection_export    : out   std_logic_vector(7 downto 0);                     -- export
+			reset_reset_n                         : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component soc_system;
 
@@ -82,7 +81,6 @@
 			hps_0_f2h_debug_reset_req_reset_n     => CONNECTED_TO_hps_0_f2h_debug_reset_req_reset_n,     --   hps_0_f2h_debug_reset_req.reset_n
 			hps_0_f2h_stm_hw_events_stm_hwevents  => CONNECTED_TO_hps_0_f2h_stm_hw_events_stm_hwevents,  --     hps_0_f2h_stm_hw_events.stm_hwevents
 			hps_0_f2h_warm_reset_req_reset_n      => CONNECTED_TO_hps_0_f2h_warm_reset_req_reset_n,      --    hps_0_f2h_warm_reset_req.reset_n
-			hps_0_h2f_reset_reset_n               => CONNECTED_TO_hps_0_h2f_reset_reset_n,               --             hps_0_h2f_reset.reset_n
 			hps_0_hps_io_hps_io_emac1_inst_TX_CLK => CONNECTED_TO_hps_0_hps_io_hps_io_emac1_inst_TX_CLK, --                hps_0_hps_io.hps_io_emac1_inst_TX_CLK
 			hps_0_hps_io_hps_io_emac1_inst_TXD0   => CONNECTED_TO_hps_0_hps_io_hps_io_emac1_inst_TXD0,   --                            .hps_io_emac1_inst_TXD0
 			hps_0_hps_io_hps_io_emac1_inst_TXD1   => CONNECTED_TO_hps_0_hps_io_hps_io_emac1_inst_TXD1,   --                            .hps_io_emac1_inst_TXD1
@@ -147,7 +145,7 @@
 			memory_mem_odt                        => CONNECTED_TO_memory_mem_odt,                        --                            .mem_odt
 			memory_mem_dm                         => CONNECTED_TO_memory_mem_dm,                         --                            .mem_dm
 			memory_oct_rzqin                      => CONNECTED_TO_memory_oct_rzqin,                      --                            .oct_rzqin
-			reset_reset_n                         => CONNECTED_TO_reset_reset_n,                         --                       reset.reset_n
-			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export     -- pio_led_external_connection.export
+			pio_led_external_connection_export    => CONNECTED_TO_pio_led_external_connection_export,    -- pio_led_external_connection.export
+			reset_reset_n                         => CONNECTED_TO_reset_reset_n                          --                       reset.reset_n
 		);
 

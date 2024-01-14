@@ -5,7 +5,6 @@ module soc_system (
 	hps_0_f2h_debug_reset_req_reset_n,
 	hps_0_f2h_stm_hw_events_stm_hwevents,
 	hps_0_f2h_warm_reset_req_reset_n,
-	hps_0_h2f_reset_reset_n,
 	hps_0_hps_io_hps_io_emac1_inst_TX_CLK,
 	hps_0_hps_io_hps_io_emac1_inst_TXD0,
 	hps_0_hps_io_hps_io_emac1_inst_TXD1,
@@ -70,15 +69,14 @@ module soc_system (
 	memory_mem_odt,
 	memory_mem_dm,
 	memory_oct_rzqin,
-	reset_reset_n,
-	pio_led_external_connection_export);	
+	pio_led_external_connection_export,
+	reset_reset_n);	
 
 	input		clk_clk;
 	input		hps_0_f2h_cold_reset_req_reset_n;
 	input		hps_0_f2h_debug_reset_req_reset_n;
 	input	[27:0]	hps_0_f2h_stm_hw_events_stm_hwevents;
 	input		hps_0_f2h_warm_reset_req_reset_n;
-	output		hps_0_h2f_reset_reset_n;
 	output		hps_0_hps_io_hps_io_emac1_inst_TX_CLK;
 	output		hps_0_hps_io_hps_io_emac1_inst_TXD0;
 	output		hps_0_hps_io_hps_io_emac1_inst_TXD1;
@@ -143,6 +141,6 @@ module soc_system (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
-	input		reset_reset_n;
 	output	[7:0]	pio_led_external_connection_export;
+	input		reset_reset_n;
 endmodule
