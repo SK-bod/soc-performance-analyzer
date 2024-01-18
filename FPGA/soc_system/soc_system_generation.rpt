@@ -33,7 +33,7 @@ Warning: soc_system.hps_0: 1 or more output clock frequencies cannot be achieved
 Info: soc_system.jtag_uart: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
 Info: soc_system.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
 Info: soc_system.sysid_qsys: Time stamp will be automatically updated when this component is generated.
-Warning: soc_system.fpga_only_master.master/SK_module_0.avalon_slave_2: Master fpga_only_master.master cannot safely write to slave SK_module_0.avalon_slave_2, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
+Warning: soc_system.hps_0.h2f_lw_axi_master/SK_module_0.avalon_slave_2: Master hps_0.h2f_lw_axi_master cannot safely write to slave SK_module_0.avalon_slave_2, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
 Info: qsys-generate succeeded.
 Info: Finished: Create block symbol file (.bsf)
 Info: 
@@ -72,7 +72,7 @@ Warning: soc_system.hps_0: 1 or more output clock frequencies cannot be achieved
 Info: soc_system.jtag_uart: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
 Info: soc_system.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
 Info: soc_system.sysid_qsys: Time stamp will be automatically updated when this component is generated.
-Warning: soc_system.fpga_only_master.master/SK_module_0.avalon_slave_2: Master fpga_only_master.master cannot safely write to slave SK_module_0.avalon_slave_2, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
+Warning: soc_system.hps_0.h2f_lw_axi_master/SK_module_0.avalon_slave_2: Master hps_0.h2f_lw_axi_master cannot safely write to slave SK_module_0.avalon_slave_2, because the master data width is narrower than the slave data width. Add byteenable support to the slave to support safe writes from a narrow master.
 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
 Info: Interconnect is inserted between master hps_only_master.master and slave hps_0.f2h_axi_slave because the master is of type avalon and the slave is of type axi.
 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
@@ -89,15 +89,15 @@ Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely,
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
 Info: intr_capturer_0: "soc_system" instantiated intr_capturer "intr_capturer_0"
 Info: jtag_uart: Starting RTL generation for module 'soc_system_jtag_uart'
-Info: jtag_uart:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart --dir=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0033_jtag_uart_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0033_jtag_uart_gen//soc_system_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=soc_system_jtag_uart --dir=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0005_jtag_uart_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0005_jtag_uart_gen//soc_system_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
 Info: jtag_uart: Done RTL generation for module 'soc_system_jtag_uart'
 Info: jtag_uart: "soc_system" instantiated altera_avalon_jtag_uart "jtag_uart"
 Info: onchip_memory2_0: Starting RTL generation for module 'soc_system_onchip_memory2_0'
-Info: onchip_memory2_0:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_onchip_memory2_0 --dir=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0034_onchip_memory2_0_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0034_onchip_memory2_0_gen//soc_system_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory2_0:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_onchip_memory2_0 --dir=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0006_onchip_memory2_0_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0006_onchip_memory2_0_gen//soc_system_onchip_memory2_0_component_configuration.pl  --do_build_sim=0  ]
 Info: onchip_memory2_0: Done RTL generation for module 'soc_system_onchip_memory2_0'
 Info: onchip_memory2_0: "soc_system" instantiated altera_avalon_onchip_memory2 "onchip_memory2_0"
 Info: pio_led: Starting RTL generation for module 'soc_system_pio_led'
-Info: pio_led:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_led --dir=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0035_pio_led_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_3533357723997751048.dir/0035_pio_led_gen//soc_system_pio_led_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_led:   Generation command is [exec D:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I D:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I D:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_pio_led --dir=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0007_pio_led_gen/ --quartus_dir=D:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/stani/AppData/Local/Temp/alt9740_2048322255786364572.dir/0007_pio_led_gen//soc_system_pio_led_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_led: Done RTL generation for module 'soc_system_pio_led'
 Info: pio_led: "soc_system" instantiated altera_avalon_pio "pio_led"
 Info: sysid_qsys: "soc_system" instantiated altera_avalon_sysid_qsys "sysid_qsys"
@@ -134,7 +134,7 @@ Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_
 Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
 Info: router_006: "mm_interconnect_0" instantiated altera_merlin_router "router_006"
 Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
-Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
+Info: router_009: "mm_interconnect_0" instantiated altera_merlin_router "router_009"
 Info: router_010: "mm_interconnect_0" instantiated altera_merlin_router "router_010"
 Info: fpga_only_master_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "fpga_only_master_master_limiter"
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_avalon_sc_fifo.v
@@ -151,13 +151,14 @@ Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "c
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_003: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_003"
+Info: cmd_mux_004: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_004"
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_005: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_005"
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
 Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_002"
+Info: rsp_demux_004: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_004"
 Info: rsp_demux_005: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_005"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performance-analyzer/FPGA/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
@@ -185,6 +186,6 @@ Info: Reusing file C:/Users/stani/OneDrive/Pulpit/Magisterka/repo/soc-performanc
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 67 modules, 133 files
+Info: soc_system: Done "soc_system" with 68 modules, 134 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

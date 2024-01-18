@@ -48,7 +48,7 @@ ENTITY SK_module IS
 		read			: IN STD_LOGIC;
 		--avalon-mm s2 (write only)
 		write_data		: IN STD_LOGIC_VECTOR (63 DOWNTO 0);
-		write_address	: IN STD_LOGIC_VECTOR (8 DOWNTO 0);
+		--write_address	: IN STD_LOGIC_VECTOR (8 DOWNTO 0); // to w jakis sposb zaimplementowac wewnetrznie
 		write			: IN STD_LOGIC;
 		
 		--generic input

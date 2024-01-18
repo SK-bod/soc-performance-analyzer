@@ -29,7 +29,7 @@
    {
       datum baseAddress
       {
-         value = "69632";
+         value = "1040";
          type = "String";
       }
    }
@@ -900,6 +900,15 @@
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
+   end="SK_module_0.avalon_slave_2">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0410" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="hps_0.h2f_lw_axi_master"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00010000" />
@@ -930,15 +939,6 @@
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00030000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="fpga_only_master.master"
-   end="SK_module_0.avalon_slave_2">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00011000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1054,17 +1054,17 @@
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="SK_module_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
    end="onchip_memory2_0.reset1" />
  <connection
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="hps_0.h2f_reset"
+   end="SK_module_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

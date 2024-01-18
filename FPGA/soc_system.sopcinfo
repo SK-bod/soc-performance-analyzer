@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2024.01.18.22:41:13 -->
+ <!-- 2024.01.18.23:11:14 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1705614071</value>
+  <value>1705615871</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -153,10 +153,10 @@ parameters are a RESULT of the module parameters. -->
    <type>reset</type>
    <isStart>false</isStart>
    <port>
-    <name>reset_reset</name>
+    <name>reset_n</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>reset</role>
+    <role>reset_n</role>
    </port>
   </interface>
   <interface name="clock_sink" kind="clock_sink" version="18.1">
@@ -242,7 +242,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>4096</value>
+    <value>8</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -549,12 +549,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>write</role>
-   </port>
-   <port>
-    <name>write_address</name>
-    <direction>Input</direction>
-    <width>9</width>
-    <role>address</role>
    </port>
   </interface>
   <interface name="avalon_slave_1" kind="avalon_slave" version="18.1">
@@ -1795,14 +1789,6 @@ parameters are a RESULT of the module parameters. -->
     <name>intr_capturer_0.avalon_slave_0</name>
     <baseAddress>196608</baseAddress>
     <span>8</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>SK_module_0</moduleName>
-    <slaveName>avalon_slave_2</slaveName>
-    <name>SK_module_0.avalon_slave_2</name>
-    <baseAddress>69632</baseAddress>
-    <span>4096</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -18450,6 +18436,14 @@ parameters are a RESULT of the module parameters. -->
     <name>SK_module_0.avalon_slave_1</name>
     <baseAddress>0</baseAddress>
     <span>1024</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>SK_module_0</moduleName>
+    <slaveName>avalon_slave_2</slaveName>
+    <name>SK_module_0.avalon_slave_2</name>
+    <baseAddress>1040</baseAddress>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -45336,6 +45330,14 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
+    <moduleName>SK_module_0</moduleName>
+    <slaveName>avalon_slave_2</slaveName>
+    <name>SK_module_0.avalon_slave_2</name>
+    <baseAddress>1040</baseAddress>
+    <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
     <moduleName>sysid_qsys</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys.control_slave</name>
@@ -46895,6 +46897,14 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
+    <moduleName>SK_module_0</moduleName>
+    <slaveName>avalon_slave_2</slaveName>
+    <name>SK_module_0.avalon_slave_2</name>
+    <baseAddress>4280288272</baseAddress>
+    <span>8</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
     <moduleName>sysid_qsys</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys.control_slave</name>
@@ -47755,6 +47765,14 @@ parameters are a RESULT of the module parameters. -->
     <name>SK_module_0.avalon_slave_1</name>
     <baseAddress>4280287232</baseAddress>
     <span>1024</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>SK_module_0</moduleName>
+    <slaveName>avalon_slave_2</slaveName>
+    <name>SK_module_0.avalon_slave_2</name>
+    <baseAddress>4280288272</baseAddress>
+    <span>8</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -79233,7 +79251,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1705614071</value>
+   <value>1705615871</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -79253,7 +79271,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1705614071</value>
+   <value>1705615871</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -79269,7 +79287,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1705614071</value>
+   <value>1705615871</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -90006,6 +90024,57 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_slave_1</endConnectionPoint>
  </connection>
  <connection
+   name="hps_0_bridges.h2f_lw/SK_module_0.avalon_slave_2"
+   kind="avalon"
+   version="18.1"
+   start="hps_0_bridges.h2f_lw"
+   end="SK_module_0.avalon_slave_2">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0410</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>hps_0_bridges</startModule>
+  <startConnectionPoint>h2f_lw</startConnectionPoint>
+  <endModule>SK_module_0</endModule>
+  <endConnectionPoint>avalon_slave_2</endConnectionPoint>
+ </connection>
+ <connection
    name="hps_0_bridges.h2f_lw/sysid_qsys.control_slave"
    kind="avalon"
    version="18.1"
@@ -90208,57 +90277,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>master</startConnectionPoint>
   <endModule>intr_capturer_0</endModule>
   <endConnectionPoint>avalon_slave_0</endConnectionPoint>
- </connection>
- <connection
-   name="fpga_only_master.master/SK_module_0.avalon_slave_2"
-   kind="avalon"
-   version="18.1"
-   start="fpga_only_master.master"
-   end="SK_module_0.avalon_slave_2">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x00011000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>fpga_only_master</startModule>
-  <startConnectionPoint>master</startConnectionPoint>
-  <endModule>SK_module_0</endModule>
-  <endConnectionPoint>avalon_slave_2</endConnectionPoint>
  </connection>
  <connection
    name="fpga_only_master.master/sysid_qsys.control_slave"
@@ -90916,33 +90934,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/SK_module_0.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="SK_module_0.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>SK_module_0</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk_reset/onchip_memory2_0.reset1"
    kind="reset"
    version="18.1"
@@ -90995,6 +90986,33 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>intr_capturer_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="hps_0_bridges.h2f_reset/SK_module_0.reset"
+   kind="reset"
+   version="18.1"
+   start="hps_0_bridges.h2f_reset"
+   end="SK_module_0.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>hps_0_bridges</startModule>
+  <startConnectionPoint>h2f_reset</startConnectionPoint>
+  <endModule>SK_module_0</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <plugin>
   <instanceCount>1</instanceCount>
