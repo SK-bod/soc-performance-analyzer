@@ -9,7 +9,6 @@ module soc_system (
 		input  wire        hps_0_f2h_debug_reset_req_reset_n,     //   hps_0_f2h_debug_reset_req.reset_n
 		input  wire [27:0] hps_0_f2h_stm_hw_events_stm_hwevents,  //     hps_0_f2h_stm_hw_events.stm_hwevents
 		input  wire        hps_0_f2h_warm_reset_req_reset_n,      //    hps_0_f2h_warm_reset_req.reset_n
-		output wire        hps_0_h2f_reset_reset_n,               //             hps_0_h2f_reset.reset_n
 		output wire        hps_0_hps_io_hps_io_emac1_inst_TX_CLK, //                hps_0_hps_io.hps_io_emac1_inst_TX_CLK
 		output wire        hps_0_hps_io_hps_io_emac1_inst_TXD0,   //                            .hps_io_emac1_inst_TXD0
 		output wire        hps_0_hps_io_hps_io_emac1_inst_TXD1,   //                            .hps_io_emac1_inst_TXD1
@@ -175,8 +174,14 @@ module soc_system (
 	wire   [31:0] mm_interconnect_0_intr_capturer_0_avalon_slave_0_readdata; // intr_capturer_0:rddata -> mm_interconnect_0:intr_capturer_0_avalon_slave_0_readdata
 	wire    [0:0] mm_interconnect_0_intr_capturer_0_avalon_slave_0_address;  // mm_interconnect_0:intr_capturer_0_avalon_slave_0_address -> intr_capturer_0:addr
 	wire          mm_interconnect_0_intr_capturer_0_avalon_slave_0_read;     // mm_interconnect_0:intr_capturer_0_avalon_slave_0_read -> intr_capturer_0:read
+	wire    [8:0] mm_interconnect_0_sk_module_0_avalon_slave_2_address;      // mm_interconnect_0:SK_module_0_avalon_slave_2_address -> SK_module_0:write_address
+	wire          mm_interconnect_0_sk_module_0_avalon_slave_2_write;        // mm_interconnect_0:SK_module_0_avalon_slave_2_write -> SK_module_0:write
+	wire   [63:0] mm_interconnect_0_sk_module_0_avalon_slave_2_writedata;    // mm_interconnect_0:SK_module_0_avalon_slave_2_writedata -> SK_module_0:write_data
 	wire   [31:0] mm_interconnect_0_sysid_qsys_control_slave_readdata;       // sysid_qsys:readdata -> mm_interconnect_0:sysid_qsys_control_slave_readdata
 	wire    [0:0] mm_interconnect_0_sysid_qsys_control_slave_address;        // mm_interconnect_0:sysid_qsys_control_slave_address -> sysid_qsys:address
+	wire   [31:0] mm_interconnect_0_sk_module_0_avalon_slave_1_readdata;     // SK_module_0:read_data -> mm_interconnect_0:SK_module_0_avalon_slave_1_readdata
+	wire    [7:0] mm_interconnect_0_sk_module_0_avalon_slave_1_address;      // mm_interconnect_0:SK_module_0_avalon_slave_1_address -> SK_module_0:read_address
+	wire          mm_interconnect_0_sk_module_0_avalon_slave_1_read;         // mm_interconnect_0:SK_module_0_avalon_slave_1_read -> SK_module_0:read
 	wire          mm_interconnect_0_pio_led_s1_chipselect;                   // mm_interconnect_0:pio_led_s1_chipselect -> pio_led:chipselect
 	wire   [31:0] mm_interconnect_0_pio_led_s1_readdata;                     // pio_led:readdata -> mm_interconnect_0:pio_led_s1_readdata
 	wire    [1:0] mm_interconnect_0_pio_led_s1_address;                      // mm_interconnect_0:pio_led_s1_address -> pio_led:address
@@ -232,9 +237,21 @@ module soc_system (
 	wire   [31:0] hps_0_f2h_irq1_irq;                                        // irq_mapper_001:sender_irq -> hps_0:f2h_irq_p1
 	wire   [31:0] intr_capturer_0_interrupt_receiver_irq;                    // irq_mapper_002:sender_irq -> intr_capturer_0:interrupt_in
 	wire          irq_mapper_receiver0_irq;                                  // jtag_uart:av_irq -> [irq_mapper:receiver0_irq, irq_mapper_002:receiver0_irq]
-	wire          rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_led:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
+	wire          rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [SK_module_0:reset_reset, intr_capturer_0:rst_n, irq_mapper_002:reset, jtag_uart:rst_n, mm_interconnect_0:fpga_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_0:onchip_memory2_0_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_only_master_master_translator_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, pio_led:reset_n, rst_translator:in_reset, sysid_qsys:reset_n]
 	wire          rst_controller_reset_out_reset_req;                        // rst_controller:reset_req -> [onchip_memory2_0:reset_req, rst_translator:reset_req_in]
 	wire          rst_controller_001_reset_out_reset;                        // rst_controller_001:reset_out -> [mm_interconnect_0:hps_0_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:hps_0_f2h_axi_slave_agent_reset_sink_reset_bridge_in_reset_reset]
+	wire          hps_0_h2f_reset_reset;                                     // hps_0:h2f_rst_n -> rst_controller_001:reset_in0
+
+	SK_module sk_module_0 (
+		.reset_reset    (rst_controller_reset_out_reset),                         //          reset.reset
+		.clock_sink_clk (clk_clk),                                                //     clock_sink.clk
+		.write_data     (mm_interconnect_0_sk_module_0_avalon_slave_2_writedata), // avalon_slave_2.writedata
+		.write          (mm_interconnect_0_sk_module_0_avalon_slave_2_write),     //               .write
+		.write_address  (mm_interconnect_0_sk_module_0_avalon_slave_2_address),   //               .address
+		.read           (mm_interconnect_0_sk_module_0_avalon_slave_1_read),      // avalon_slave_1.read
+		.read_data      (mm_interconnect_0_sk_module_0_avalon_slave_1_readdata),  //               .readdata
+		.read_address   (mm_interconnect_0_sk_module_0_avalon_slave_1_address)    //               .address
+	);
 
 	soc_system_fpga_only_master #(
 		.USE_PLI     (0),
@@ -326,7 +343,7 @@ module soc_system (
 		.hps_io_gpio_inst_GPIO53  (hps_0_hps_io_hps_io_gpio_inst_GPIO53),          //                    .hps_io_gpio_inst_GPIO53
 		.hps_io_gpio_inst_GPIO54  (hps_0_hps_io_hps_io_gpio_inst_GPIO54),          //                    .hps_io_gpio_inst_GPIO54
 		.hps_io_gpio_inst_GPIO61  (hps_0_hps_io_hps_io_gpio_inst_GPIO61),          //                    .hps_io_gpio_inst_GPIO61
-		.h2f_rst_n                (hps_0_h2f_reset_reset_n),                       //           h2f_reset.reset_n
+		.h2f_rst_n                (hps_0_h2f_reset_reset),                         //           h2f_reset.reset_n
 		.h2f_axi_clk              (clk_clk),                                       //       h2f_axi_clock.clk
 		.h2f_AWID                 (hps_0_h2f_axi_master_awid),                     //      h2f_axi_master.awid
 		.h2f_AWADDR               (hps_0_h2f_axi_master_awaddr),                   //                    .awaddr
@@ -625,6 +642,12 @@ module soc_system (
 		.pio_led_s1_readdata                                              (mm_interconnect_0_pio_led_s1_readdata),                     //                                                           .readdata
 		.pio_led_s1_writedata                                             (mm_interconnect_0_pio_led_s1_writedata),                    //                                                           .writedata
 		.pio_led_s1_chipselect                                            (mm_interconnect_0_pio_led_s1_chipselect),                   //                                                           .chipselect
+		.SK_module_0_avalon_slave_1_address                               (mm_interconnect_0_sk_module_0_avalon_slave_1_address),      //                                 SK_module_0_avalon_slave_1.address
+		.SK_module_0_avalon_slave_1_read                                  (mm_interconnect_0_sk_module_0_avalon_slave_1_read),         //                                                           .read
+		.SK_module_0_avalon_slave_1_readdata                              (mm_interconnect_0_sk_module_0_avalon_slave_1_readdata),     //                                                           .readdata
+		.SK_module_0_avalon_slave_2_address                               (mm_interconnect_0_sk_module_0_avalon_slave_2_address),      //                                 SK_module_0_avalon_slave_2.address
+		.SK_module_0_avalon_slave_2_write                                 (mm_interconnect_0_sk_module_0_avalon_slave_2_write),        //                                                           .write
+		.SK_module_0_avalon_slave_2_writedata                             (mm_interconnect_0_sk_module_0_avalon_slave_2_writedata),    //                                                           .writedata
 		.sysid_qsys_control_slave_address                                 (mm_interconnect_0_sysid_qsys_control_slave_address),        //                                   sysid_qsys_control_slave.address
 		.sysid_qsys_control_slave_readdata                                (mm_interconnect_0_sysid_qsys_control_slave_readdata)        //                                                           .readdata
 	);
@@ -791,7 +814,7 @@ module soc_system (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_001 (
-		.reset_in0      (~hps_0_h2f_reset_reset_n),           // reset_in0.reset
+		.reset_in0      (~hps_0_h2f_reset_reset),             // reset_in0.reset
 		.clk            (clk_clk),                            //       clk.clk
 		.reset_out      (rst_controller_001_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)

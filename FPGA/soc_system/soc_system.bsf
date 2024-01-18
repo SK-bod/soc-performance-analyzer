@@ -601,7 +601,7 @@ refer to the applicable agreement for further details.
 		(text "export" (rect 277 1059 590 2128)(font "Arial" (color 0 0 0)))
 		(text "reset" (rect 243 1075 516 2163)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "reset_n" (rect 277 1099 596 2208)(font "Arial" (color 0 0 0)))
-		(text " system " (rect 717 1120 1482 2250)(font "Arial" ))
+		(text " soc_system " (rect 696 1120 1464 2250)(font "Arial" ))
 		(line (pt 272 32)(pt 480 32)(line_width 1))
 		(line (pt 480 32)(pt 480 1120)(line_width 1))
 		(line (pt 272 1120)(pt 480 1120)(line_width 1))

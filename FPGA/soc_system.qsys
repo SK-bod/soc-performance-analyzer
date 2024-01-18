@@ -17,11 +17,19 @@
          type = "int";
       }
    }
-   element SK_module_0.avalon_slave_0
+   element SK_module_0.avalon_slave_1
    {
       datum baseAddress
       {
          value = "0";
+         type = "String";
+      }
+   }
+   element SK_module_0.avalon_slave_2
+   {
+      datum baseAddress
+      {
+         value = "69632";
          type = "String";
       }
    }
@@ -140,7 +148,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "1024";
          type = "String";
       }
    }
@@ -814,7 +822,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory2_0</parameter>
+  <parameter name="autoInitializationFileName">soc_system_onchip_memory2_0</parameter>
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="64" />
@@ -883,7 +891,7 @@
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
-   end="SK_module_0.avalon_slave_0">
+   end="SK_module_0.avalon_slave_1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -903,7 +911,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -922,6 +930,15 @@
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00030000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="fpga_only_master.master"
+   end="SK_module_0.avalon_slave_2">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00011000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -974,7 +991,11 @@
    version="18.1"
    start="clk_0.clk"
    end="intr_capturer_0.clock" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="SK_module_0.clock" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
+   end="SK_module_0.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
@@ -1044,16 +1065,6 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="hps_0.h2f_reset"
-   end="SK_module_0.reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="fpga_only_master.master_reset"
-   end="SK_module_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
