@@ -33,40 +33,45 @@
 --refer to the applicable agreement for further details.
 
 
-LIBRARY ieee;
-USE ieee.std_logic_1164.all;
+library ieee;
+use ieee.std_logic_1164.all;
 
-LIBRARY altera_mf;
-USE altera_mf.altera_mf_components.all;
+library altera_mf;
+use altera_mf.altera_mf_components.all;
 
-ENTITY SK_module IS
-	PORT
+entity SK_module is
+	port
 	(
 		--avalon-mm s1 (read only)
-		read_data		: OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-		read_address	: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-		read			: IN STD_LOGIC;
+		read_data		: out std_logic_vector (31 downto 0);
+		read_address	: in std_logic_vector (8 downto 0);
+		read			: in std_logic;
 		--avalon-mm s2 (write only)
-		write_data		: IN STD_LOGIC_VECTOR (63 DOWNTO 0);
-		--write_address	: IN STD_LOGIC_VECTOR (8 DOWNTO 0); // to w jakis sposb zaimplementowac wewnetrznie
-		write			: IN STD_LOGIC;
+		write_data		: in std_logic_vector (31 downto 0);
+		write			: in std_logic;
 		
 		--generic input
-		clock		: IN STD_LOGIC; 
-		reset_n		: IN STD_LOGIC
+		clk			: in std_logic; 
+		reset_n		: in std_logic
 	);
-END SK_module;
+end SK_module;
 
 
-ARCHITECTURE SYN OF sk_module IS
+architecture syn of SK_module is
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (31 DOWNTO 0);
-
-BEGIN
-	read_data    <= sub_wire0(31 DOWNTO 0);
+	--signal to store data to read that'll be copied to read_data
+	signal read_data_store			: std_logic_vector (31 downto 0);
+	--signal to store an write address in which we store flags from CPU
+	signal write_address			 	: std_logic_vector (7 downto 0);
+	--signal to store timestamp
+	signal counter_timestamp 		: std_logic_vector (47 downto 0);
+	--signal to store timestamp + 16 bits from write_data
+	signal write_data_internal		: std_logic_vector (63 downto 0);
+	
+begin
 
 	altsyncram_component : altsyncram
-	GENERIC MAP (
+	generic map (
 		address_aclr_b => "NONE",
 		address_reg_b => "CLOCK0",
 		clock_enable_input_a => "BYPASS",
@@ -88,19 +93,17 @@ BEGIN
 		width_b => 32,
 		width_byteena_a => 1
 	)
-	PORT MAP (
+	port map (
 		address_a => write_address,
 		address_b => read_address,
-		clock0 => clock,
-		data_a => write_data,
+		clock0 => clk,
+		data_a => write_data_internal,
 		rden_b => read,
 		wren_a => write,
 		q_b => read_data
 	);
-
-
-
-END SYN;
+	
+end SYN;
 
 -- ============================================================
 -- CNX file retrieval info

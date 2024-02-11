@@ -21,7 +21,7 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "262144";
          type = "String";
       }
    }
@@ -29,7 +29,7 @@
    {
       datum baseAddress
       {
-         value = "1040";
+         value = "16";
          type = "String";
       }
    }
@@ -148,7 +148,79 @@
    {
       datum baseAddress
       {
-         value = "1024";
+         value = "0";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -822,7 +894,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">soc_system_onchip_memory2_0</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory2_0</parameter>
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="64" />
@@ -893,7 +965,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="SK_module_0.avalon_slave_1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x00040000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -902,7 +974,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="SK_module_0.avalon_slave_2">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0410" />
+  <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -920,7 +992,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="pio_led.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -991,11 +1063,7 @@
    version="18.1"
    start="clk_0.clk"
    end="intr_capturer_0.clock" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="SK_module_0.clock_sink" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="SK_module_0.clock" />
  <connection
    kind="clock"
    version="18.1"

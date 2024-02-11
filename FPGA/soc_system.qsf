@@ -607,13 +607,5 @@ set_global_assignment -name VERILOG_FILE ip/edge_detect/altera_edge_detector.v
 set_global_assignment -name VERILOG_FILE ip/debounce/debounce.v
 set_global_assignment -name QIP_FILE ip/altsource_probe/hps_reset.qip
 set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name QIP_FILE test.qip
-set_global_assignment -name QIP_FILE SK_module/dpram.qip
-set_global_assignment -name QIP_FILE SK_module/sys_id.qip
-set_global_assignment -name SIP_FILE SK_module/sys_id.sip
-set_global_assignment -name QIP_FILE SK_module/counter.qip
-set_global_assignment -name QIP_FILE SK_module/system_id.qip
-set_global_assignment -name SIP_FILE SK_module/system_id.sip
-set_global_assignment -name BDF_FILE SK_module/szkic_.bdf
 set_global_assignment -name QIP_FILE SK_module/SK_module.qip
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
