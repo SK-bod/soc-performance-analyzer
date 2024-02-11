@@ -35,6 +35,7 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
 
 library altera_mf;
 use altera_mf.altera_mf_components.all;
@@ -103,6 +104,25 @@ begin
 		q_b => read_data
 	);
 	
+	process(clk, reset_n) is
+		begin
+				-- initialization when reset
+				if reset_n = '0' then
+					write_address 					<= (others  => '0');
+					counter_timestamp 			<= (others 	=> '0');
+				elsif rising_edge(clk) then
+				-- zwiekszyc counter timestamp
+					counter_timestamp <= counter_timestamp + 1;
+				-- jesli wykryjemy write == 1 => zwiekszamy write address o 1 slowo
+					if write = '1' then
+						write_address <= write_address + 64;
+					end if;
+				elsif falling_edge(clk) then
+					-- przypisujemy do write_data_internal timestamp+ 16 bitow z write_data
+					write_data_internal(63 downto 16) <= counter_timestamp(47 downto 0);
+					write_data_internal(15 downto 0) <= write_address(15 downto 0);
+				end if;
+		end process;
 end SYN;
 
 -- ============================================================
