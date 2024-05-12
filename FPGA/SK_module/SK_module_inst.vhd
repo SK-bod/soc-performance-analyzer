@@ -1,4 +1,4 @@
-SK_module_inst : SK_module PORT MAP (
+sk_module_inst : sk_module PORT MAP (
 		clock	 => clock_sig,
 		data	 => data_sig,
 		rdaddress	 => rdaddress_sig,

@@ -147,7 +147,7 @@ module ghrd(
 
 
  soc_system u0 (
-      .pio_led_external_connection_export(LED),
+//      .pio_led_external_connection_export(LED),
 		//Clock&Reset
 	  .clk_clk                               (FPGA_CLK1_50 ),                        //  clk.clk
 	  .reset_reset_n                         (1'b1         ),                        //  reset.reset_n

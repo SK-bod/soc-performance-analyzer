@@ -9,35 +9,11 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element SK_module_0
-   {
-      datum _sortIndex
-      {
-         value = "9";
-         type = "int";
-      }
-   }
-   element SK_module_0.avalon_slave_1
-   {
-      datum baseAddress
-      {
-         value = "262144";
-         type = "String";
-      }
-   }
-   element SK_module_0.avalon_slave_2
-   {
-      datum baseAddress
-      {
-         value = "16";
-         type = "String";
-      }
-   }
    element clk_0
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -45,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
@@ -69,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -77,7 +53,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -103,7 +79,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -124,7 +100,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -136,19 +112,51 @@
          type = "String";
       }
    }
-   element pio_led
+   element sk_module_0
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "8";
          type = "int";
       }
    }
-   element pio_led.s1
+   element sk_module_0.avalon_slave_0
    {
       datum baseAddress
       {
          value = "0";
+         type = "String";
+      }
+   }
+   element sk_module_0.avalon_slave_1
+   {
+      datum baseAddress
+      {
+         value = "2048";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -228,7 +236,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
    }
@@ -290,13 +298,7 @@
  <interface name="hps_0_h2f_user0_clock" internal="hps_0.h2f_user0_clock" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
- <interface
-   name="pio_led_external_connection"
-   internal="pio_led.external_connection"
-   type="conduit"
-   dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
- <module name="SK_module_0" kind="SK_module" version="1.0" enabled="1" />
  <module name="clk_0" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -894,7 +896,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory2_0</parameter>
+  <parameter name="autoInitializationFileName">soc_system_onchip_memory2_0</parameter>
   <parameter name="blockType" value="AUTO" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="64" />
@@ -920,20 +922,7 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module name="pio_led" kind="altera_avalon_pio" version="18.1" enabled="1">
-  <parameter name="bitClearingEdgeCapReg" value="false" />
-  <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
-  <parameter name="direction" value="Output" />
-  <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="false" />
-  <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="255" />
-  <parameter name="simDoTestBenchWiring" value="false" />
-  <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
- </module>
+ <module name="sk_module_0" kind="sk_module" version="1.0" enabled="1" />
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
@@ -963,18 +952,18 @@
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
-   end="SK_module_0.avalon_slave_1">
+   end="sk_module_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00040000" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="hps_0.h2f_lw_axi_master"
-   end="SK_module_0.avalon_slave_2">
+   end="sk_module_0.avalon_slave_1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -984,15 +973,6 @@
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00010000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="pio_led.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1052,7 +1032,6 @@
    start="clk_0.clk"
    end="fpga_only_master.clk" />
  <connection kind="clock" version="18.1" start="clk_0.clk" end="jtag_uart.clk" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="pio_led.clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -1063,7 +1042,7 @@
    version="18.1"
    start="clk_0.clk"
    end="intr_capturer_0.clock" />
- <connection kind="clock" version="18.1" start="clk_0.clk" end="SK_module_0.clock" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="sk_module_0.clock" />
  <connection
    kind="clock"
    version="18.1"
@@ -1117,7 +1096,7 @@
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="pio_led.reset" />
+   end="sk_module_0.reset" />
  <connection
    kind="reset"
    version="18.1"
@@ -1128,11 +1107,6 @@
    version="18.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="hps_0.h2f_reset"
-   end="SK_module_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>

@@ -4,7 +4,7 @@
 -- MODULE: altsyncram 
 
 -- ============================================================
--- File Name: SK_module.vhd
+-- File Name: sk_module.vhd
 -- Megafunction Name(s):
 -- 			altsyncram
 --
@@ -33,15 +33,15 @@
 --refer to the applicable agreement for further details.
 
 
-library ieee;
-use ieee.std_logic_1164.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
-library altera_mf;
-use altera_mf.altera_mf_components.all;
+LIBRARY altera_mf;
+USE altera_mf.altera_mf_components.all;
 
-entity SK_module is
-	port
+ENTITY sk_module IS
+	PORT
 	(
 		--avalon-mm s1 (read only)
 		read_data		: out std_logic_vector (31 downto 0);
@@ -55,24 +55,23 @@ entity SK_module is
 		clk			: in std_logic; 
 		reset_n		: in std_logic
 	);
-end SK_module;
+END sk_module;
 
 
-architecture syn of SK_module is
+ARCHITECTURE SYN OF sk_module IS
 
-	--signal to store data to read that'll be copied to read_data
-	signal read_data_store			: std_logic_vector (31 downto 0);
 	--signal to store an write address in which we store flags from CPU
 	signal write_address			 	: std_logic_vector (7 downto 0);
+	--temporary signal to store write_
 	--signal to store timestamp
 	signal counter_timestamp 		: std_logic_vector (47 downto 0);
 	--signal to store timestamp + 16 bits from write_data
 	signal write_data_internal		: std_logic_vector (63 downto 0);
-	
-begin
+
+BEGIN
 
 	altsyncram_component : altsyncram
-	generic map (
+	GENERIC MAP (
 		address_aclr_b => "NONE",
 		address_reg_b => "CLOCK0",
 		clock_enable_input_a => "BYPASS",
@@ -94,7 +93,7 @@ begin
 		width_b => 32,
 		width_byteena_a => 1
 	)
-	port map (
+	PORT MAP (
 		address_a => write_address,
 		address_b => read_address,
 		clock0 => clk,
@@ -103,6 +102,9 @@ begin
 		wren_a => write,
 		q_b => read_data
 	);
+
+write_data_internal(15 downto 0) <= write_data(15 downto 0);
+	write_data_internal(63 downto 16) <= counter_timestamp(47 downto 0);
 	
 	process(clk, reset_n) is
 		begin
@@ -111,19 +113,16 @@ begin
 					write_address 					<= (others  => '0');
 					counter_timestamp 			<= (others 	=> '0');
 				elsif rising_edge(clk) then
-				-- zwiekszyc counter timestamp
+					-- zwiekszyc counter timestamp
 					counter_timestamp <= counter_timestamp + 1;
-				-- jesli wykryjemy write == 1 => zwiekszamy write address o 1 slowo
+					-- jesli wykryjemy write == 1 => zwiekszamy write address o 1 slowo
 					if write = '1' then
-						write_address <= write_address + 64;
+						write_address <= write_address + 1;
 					end if;
-				elsif falling_edge(clk) then
-					-- przypisujemy do write_data_internal timestamp+ 16 bitow z write_data
-					write_data_internal(63 downto 16) <= counter_timestamp(47 downto 0);
-					write_data_internal(15 downto 0) <= write_address(15 downto 0);
 				end if;
 		end process;
-end SYN;
+
+END SYN;
 
 -- ============================================================
 -- CNX file retrieval info
@@ -222,9 +221,9 @@ end SYN;
 -- Retrieval info: CONNECT: @rden_b 0 0 0 0 rden 0 0 0 0
 -- Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 32 0 @q_b 0 0 32 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL SK_module.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL SK_module.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL SK_module.cmp FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL SK_module.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL SK_module_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.inc FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.cmp FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: altera_mf
