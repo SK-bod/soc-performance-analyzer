@@ -10,10 +10,12 @@ from vunit import VUnit
 ROOT = Path(__file__).resolve().parent
 
 # Sources path for DUT
-DUT_PATH = ROOT / "soc_performance_analyzer_module"
+DUT_PATH = ROOT / "soc-performance-analyzer-module"
 
 # Sources path for TB
-TEST_PATH = ROOT / "test_bench"
+TEST_PATH = ROOT / "testbench"
+
+HOME = Path.home()
 
 # create Vunit instance
 vu = VUnit.from_argv()
@@ -23,7 +25,7 @@ vu.add_verilog_builtins()
 
 # Adding BFM
 altera_avalon_bfm = vu.add_library("altera_avalon_bfm")
-SopcBuilderIpBase = os.path.join("D:/intelFPGA_lite","18.1", "ip", "altera", "sopc_builder_ip", "verification")
+SopcBuilderIpBase = os.path.join(HOME,"intelFPGA_lite","18.1", "ip", "altera", "sopc_builder_ip", "verification")
 altera_avalon_bfm.add_source_file(os.path.join(SopcBuilderIpBase, "altera_avalon_mm_slave_bfm", "altera_avalon_mm_slave_bfm.sv"))
 altera_avalon_bfm.add_source_file(os.path.join(SopcBuilderIpBase, "altera_avalon_mm_master_bfm", "altera_avalon_mm_master_bfm.sv"))
 altera_avalon_bfm.add_source_file(os.path.join(SopcBuilderIpBase, "altera_avalon_st_sink_bfm", "altera_avalon_st_sink_bfm.sv"))

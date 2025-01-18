@@ -157,7 +157,7 @@ avalon_master_wr
     .avm_writeid()
 );
 
-sk_module DUT
+soc_performance_analyzer_module DUT
 (
     .read_data		(ReadData),
     .read_address	(ReadAddress),
