@@ -45,7 +45,7 @@ ENTITY soc_performance_analyzer_module IS
 	(
 		--avalon-mm s1 (read only)
 		read_data		: out std_logic_vector (31 downto 0);
-		read_address	: in std_logic_vector (14 downto 0);
+		read_address		: in std_logic_vector (14 downto 0);
 		read			: in std_logic;
 		--avalon-mm s2 (write only)
 		write_data		: in std_logic_vector (31 downto 0);
@@ -53,7 +53,7 @@ ENTITY soc_performance_analyzer_module IS
 		
 		--generic input
 		clk			: in std_logic; 
-		reset_n		: in std_logic
+		reset_n			: in std_logic
 	);
 END soc_performance_analyzer_module;
 
@@ -62,11 +62,10 @@ ARCHITECTURE SYN OF soc_performance_analyzer_module IS
 
 	--signal to store an write address in which we store flags from CPU
 	signal write_address			 	: std_logic_vector (13 downto 0);
-	--temporary signal to store write_
 	--signal to store timestamp
-	signal counter_timestamp 		: std_logic_vector (47 downto 0);
+	signal counter_timestamp 			: std_logic_vector (47 downto 0);
 	--signal to store timestamp + 16 bits from write_data
-	signal write_data_internal		: std_logic_vector (63 downto 0);
+	signal write_data_internal			: std_logic_vector (63 downto 0);
 
 BEGIN
 
@@ -103,19 +102,19 @@ BEGIN
 		q_b => read_data
 	);
 
-write_data_internal(15 downto 0) <= write_data(15 downto 0);
+	write_data_internal(15 downto 0) <= write_data(15 downto 0);
 	write_data_internal(63 downto 16) <= counter_timestamp(47 downto 0);
 	
 	process(clk, reset_n) is
 		begin
 				-- initialization when reset
 				if reset_n = '0' then
-					write_address 					<= (others  => '0');
-					counter_timestamp 			<= (others 	=> '0');
+					write_address 		<= (others  => '0');
+					counter_timestamp 	<= (others  => '0');
 				elsif rising_edge(clk) then
-					-- zwiekszyc counter timestamp
+					
 					counter_timestamp <= counter_timestamp + 1;
-					-- jesli wykryjemy write == 1 => zwiekszamy write address o 1 slowo
+					
 					if write = '1' then
 						write_address <= write_address + 1;
 					end if;
