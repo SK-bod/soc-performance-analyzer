@@ -75,7 +75,7 @@ set_interface_property avalon_slave_0 SVD_ADDRESS_GROUP ""
 
 add_interface_port avalon_slave_0 read_data readdata Output 32
 add_interface_port avalon_slave_0 read read Input 1
-add_interface_port avalon_slave_0 read_address address Input 9
+add_interface_port avalon_slave_0 read_address address Input 15
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isMemoryDevice 0
 set_interface_assignment avalon_slave_0 embeddedsw.configuration.isNonVolatileStorage 0

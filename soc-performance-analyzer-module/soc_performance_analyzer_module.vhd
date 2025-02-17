@@ -45,7 +45,7 @@ ENTITY soc_performance_analyzer_module IS
 	(
 		--avalon-mm s1 (read only)
 		read_data		: out std_logic_vector (31 downto 0);
-		read_address	: in std_logic_vector (8 downto 0);
+		read_address	: in std_logic_vector (14 downto 0);
 		read			: in std_logic;
 		--avalon-mm s2 (write only)
 		write_data		: in std_logic_vector (31 downto 0);
@@ -61,7 +61,7 @@ END soc_performance_analyzer_module;
 ARCHITECTURE SYN OF soc_performance_analyzer_module IS
 
 	--signal to store an write address in which we store flags from CPU
-	signal write_address			 	: std_logic_vector (7 downto 0);
+	signal write_address			 	: std_logic_vector (13 downto 0);
 	--temporary signal to store write_
 	--signal to store timestamp
 	signal counter_timestamp 		: std_logic_vector (47 downto 0);
@@ -79,16 +79,16 @@ BEGIN
 		clock_enable_output_b => "BYPASS",
 		intended_device_family => "Cyclone V",
 		lpm_type => "altsyncram",
-		numwords_a => 256,
-		numwords_b => 512,
+		numwords_a => 16384,
+		numwords_b => 32768,
 		operation_mode => "DUAL_PORT",
 		outdata_aclr_b => "NONE",
 		outdata_reg_b => "CLOCK0",
 		power_up_uninitialized => "FALSE",
 		rdcontrol_reg_b => "CLOCK0",
 		read_during_write_mode_mixed_ports => "OLD_DATA",
-		widthad_a => 8,
-		widthad_b => 9,
+		widthad_a => 14,
+		widthad_b => 15,
 		width_a => 64,
 		width_b => 32,
 		width_byteena_a => 1
@@ -157,7 +157,7 @@ END SYN;
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 -- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MEMSIZE NUMERIC "16384"
+-- Retrieval info: PRIVATE: MEMSIZE NUMERIC "1048576"
 -- Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 -- Retrieval info: PRIVATE: MIFfilename STRING ""
 -- Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "2"
@@ -194,28 +194,28 @@ END SYN;
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
--- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "256"
--- Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "512"
+-- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "16384"
+-- Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "32768"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "DUAL_PORT"
 -- Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
 -- Retrieval info: CONSTANT: OUTDATA_REG_B STRING "CLOCK0"
 -- Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 -- Retrieval info: CONSTANT: RDCONTROL_REG_B STRING "CLOCK0"
 -- Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_MIXED_PORTS STRING "OLD_DATA"
--- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "8"
--- Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "9"
+-- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "14"
+-- Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "15"
 -- Retrieval info: CONSTANT: WIDTH_A NUMERIC "64"
 -- Retrieval info: CONSTANT: WIDTH_B NUMERIC "32"
 -- Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 -- Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 -- Retrieval info: USED_PORT: data 0 0 64 0 INPUT NODEFVAL "data[63..0]"
 -- Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
--- Retrieval info: USED_PORT: rdaddress 0 0 9 0 INPUT NODEFVAL "rdaddress[8..0]"
+-- Retrieval info: USED_PORT: rdaddress 0 0 15 0 INPUT NODEFVAL "rdaddress[14..0]"
 -- Retrieval info: USED_PORT: rden 0 0 0 0 INPUT VCC "rden"
--- Retrieval info: USED_PORT: wraddress 0 0 8 0 INPUT NODEFVAL "wraddress[7..0]"
+-- Retrieval info: USED_PORT: wraddress 0 0 14 0 INPUT NODEFVAL "wraddress[13..0]"
 -- Retrieval info: USED_PORT: wren 0 0 0 0 INPUT GND "wren"
--- Retrieval info: CONNECT: @address_a 0 0 8 0 wraddress 0 0 8 0
--- Retrieval info: CONNECT: @address_b 0 0 9 0 rdaddress 0 0 9 0
+-- Retrieval info: CONNECT: @address_a 0 0 14 0 wraddress 0 0 14 0
+-- Retrieval info: CONNECT: @address_b 0 0 15 0 rdaddress 0 0 15 0
 -- Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
 -- Retrieval info: CONNECT: @data_a 0 0 64 0 data 0 0 64 0
 -- Retrieval info: CONNECT: @rden_b 0 0 0 0 rden 0 0 0 0
