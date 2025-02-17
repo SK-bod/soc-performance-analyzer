@@ -5,7 +5,7 @@ module tb_soc_module;
     localparam integer clk_period = 10;
 
     logic [31:0]read_data;
-    logic [8:0]read_address = 9'b000000000;
+    logic [14:0]read_address = 15'b000000000000000;
     logic read = 1'b0;
 
     logic [31:0]write_data;
@@ -24,7 +24,7 @@ module tb_soc_module;
             $display("Hello world");    
             //set address
             write_data <= 32'hAAAAAAAA;
-            read_address <= 9'b000000000;
+            read_address <= 15'b000000000000000;
             //write
             #40ns
             @(negedge clk);
@@ -39,7 +39,7 @@ module tb_soc_module;
             read <= 1'b0;
             //set address
             write_data <= 32'hBBBBBBBB;
-            read_address <= 9'b000000010;
+            read_address <= 15'b000000000000010;
             //write
             #20ns
             @(negedge clk);
@@ -54,7 +54,7 @@ module tb_soc_module;
             read <= 1'b0;
             //set address
             write_data <= 32'hCCCCCCCC;
-            read_address <= 9'b000000100;
+            read_address <= 15'b000000000000100;
             //write
             #20ns
             @(negedge clk);

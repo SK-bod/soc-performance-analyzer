@@ -9,7 +9,7 @@ module BFM_tb;
     //Input
     logic Clk;
     logic Reset_n;
-    logic   [8:0] ReadAddress;
+    logic   [14:0] ReadAddress;
     logic Read;
     logic Write;
     logic Select;
@@ -24,7 +24,7 @@ assign Reset = ~Reset_n;
 
 altera_avalon_mm_master_bfm
 #(
-    .AV_ADDRESS_W                (9), // Address width in bits
+    .AV_ADDRESS_W                (15), // Address width in bits
     .AV_SYMBOL_W                 (8),  // Data symbol width in bits
     .AV_NUMSYMBOLS               (4),  // Number of symbols per word
     .AV_BURSTCOUNT_W             (3),  // Burst port width in bits
