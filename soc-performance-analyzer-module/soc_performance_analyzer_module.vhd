@@ -4,7 +4,7 @@
 -- MODULE: altsyncram 
 
 -- ============================================================
--- File Name: soc_performance_analyzer_module.vhd
+-- File Name: sk_module.vhd
 -- Megafunction Name(s):
 -- 			altsyncram
 --
@@ -35,37 +35,48 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
+use ieee.std_logic_unsigned.all;	
 
 LIBRARY altera_mf;
 USE altera_mf.altera_mf_components.all;
 
-ENTITY soc_performance_analyzer_module IS
+ENTITY sk_module IS
+	GENERIC
+	(
+		RAM_WORDS_SIZE_A	:	integer :=256;
+		RAM_ADDRESS_WIDTH_A	:	integer :=8;
+		RAM_ADDRESS_WIDTH_A_IN	:	integer :=7;
+		RAM_WORDS_SIZE_B	:	integer	:=512;
+		RAM_ADDRESS_WIDTH_B	:	integer :=9;
+		RAM_ADDRESS_WIDTH_B_IN  :	integer :=8;
+		RAMSIZE_NUMERIC_A	:	integer :=16384	
+	);
 	PORT
 	(
-		--avalon-mm s1 (read only)
-		read_data		: out std_logic_vector (31 downto 0);
-		read_address		: in std_logic_vector (14 downto 0);
-		read			: in std_logic;
-		--avalon-mm s2 (write only)
+		-- avalon-mm s1 write_only port A
 		write_data		: in std_logic_vector (31 downto 0);
 		write			: in std_logic;
 		
-		--generic input
+		-- avalon-mm s0 read_only port B
+		read_data		: out std_logic_vector (31 downto 0);
+		read_address	: in std_logic_vector (RAM_ADDRESS_WIDTH_B_IN downto 0);
+		read			: in std_logic;
+		
+		-- generic input
 		clk			: in std_logic; 
-		reset_n			: in std_logic
+		reset_n		: in std_logic
 	);
-END soc_performance_analyzer_module;
+END sk_module;
 
 
-ARCHITECTURE SYN OF soc_performance_analyzer_module IS
+ARCHITECTURE SYN OF sk_module IS
 
-	--signal to store an write address in which we store flags from CPU
-	signal write_address			 	: std_logic_vector (13 downto 0);
-	--signal to store timestamp
-	signal counter_timestamp 			: std_logic_vector (47 downto 0);
-	--signal to store timestamp + 16 bits from write_data
-	signal write_data_internal			: std_logic_vector (63 downto 0);
+	-- signal storing RAM address for next timestamp
+	signal write_address			 	: std_logic_vector (RAM_ADDRESS_WIDTH_A_IN downto 0);
+	-- signal used to store clock cycles
+	signal counter_timestamp 		: std_logic_vector (47 downto 0);
+	-- signal to store data for timestamp
+	signal write_data_internal		: std_logic_vector (63 downto 0);
 
 BEGIN
 
@@ -78,16 +89,16 @@ BEGIN
 		clock_enable_output_b => "BYPASS",
 		intended_device_family => "Cyclone V",
 		lpm_type => "altsyncram",
-		numwords_a => 16384,
-		numwords_b => 32768,
+		numwords_a => RAM_WORDS_SIZE_A,
+		numwords_b => RAM_WORDS_SIZE_B,
 		operation_mode => "DUAL_PORT",
 		outdata_aclr_b => "NONE",
 		outdata_reg_b => "CLOCK0",
 		power_up_uninitialized => "FALSE",
 		rdcontrol_reg_b => "CLOCK0",
 		read_during_write_mode_mixed_ports => "OLD_DATA",
-		widthad_a => 14,
-		widthad_b => 15,
+		widthad_a => RAM_ADDRESS_WIDTH_A,
+		widthad_b => RAM_ADDRESS_WIDTH_B,
 		width_a => 64,
 		width_b => 32,
 		width_byteena_a => 1
@@ -107,14 +118,11 @@ BEGIN
 	
 	process(clk, reset_n) is
 		begin
-				-- initialization when reset
 				if reset_n = '0' then
-					write_address 		<= (others  => '0');
-					counter_timestamp 	<= (others  => '0');
+					write_address <= (others => '0');
+					counter_timestamp <= (others => '0');
 				elsif rising_edge(clk) then
-					
 					counter_timestamp <= counter_timestamp + 1;
-					
 					if write = '1' then
 						write_address <= write_address + 1;
 					end if;
@@ -156,7 +164,7 @@ END SYN;
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 -- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MEMSIZE NUMERIC "1048576"
+-- Retrieval info: PRIVATE: MEMSIZE NUMERIC "RAMSIZE_NUMERIC_A"
 -- Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 -- Retrieval info: PRIVATE: MIFfilename STRING ""
 -- Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "2"
@@ -193,36 +201,36 @@ END SYN;
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_B STRING "BYPASS"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
--- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "16384"
--- Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "32768"
+-- Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "RAM_WORDS_SIZE_A"
+-- Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "RAM_WORDS_SIZE_B"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "DUAL_PORT"
 -- Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
 -- Retrieval info: CONSTANT: OUTDATA_REG_B STRING "CLOCK0"
 -- Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 -- Retrieval info: CONSTANT: RDCONTROL_REG_B STRING "CLOCK0"
 -- Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_MIXED_PORTS STRING "OLD_DATA"
--- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "14"
--- Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "15"
+-- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "RAM_ADDRESS_WIDTH_B"
+-- Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "RAM_ADDRESS_WIDTH_A"
 -- Retrieval info: CONSTANT: WIDTH_A NUMERIC "64"
 -- Retrieval info: CONSTANT: WIDTH_B NUMERIC "32"
 -- Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "1"
 -- Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 -- Retrieval info: USED_PORT: data 0 0 64 0 INPUT NODEFVAL "data[63..0]"
 -- Retrieval info: USED_PORT: q 0 0 32 0 OUTPUT NODEFVAL "q[31..0]"
--- Retrieval info: USED_PORT: rdaddress 0 0 15 0 INPUT NODEFVAL "rdaddress[14..0]"
+-- Retrieval info: USED_PORT: rdaddress 0 0 RAM_ADDRESS_WIDTH_B 0 INPUT NODEFVAL "rdaddress[RAM_ADDRESS_WIDTH_B_IN..0]"
 -- Retrieval info: USED_PORT: rden 0 0 0 0 INPUT VCC "rden"
--- Retrieval info: USED_PORT: wraddress 0 0 14 0 INPUT NODEFVAL "wraddress[13..0]"
+-- Retrieval info: USED_PORT: wraddress 0 0 RAM_ADDRESS_WIDTH_A 0 INPUT NODEFVAL "wraddress[RAM_ADDRESS_WIDTH_A_IN..0]"
 -- Retrieval info: USED_PORT: wren 0 0 0 0 INPUT GND "wren"
--- Retrieval info: CONNECT: @address_a 0 0 14 0 wraddress 0 0 14 0
--- Retrieval info: CONNECT: @address_b 0 0 15 0 rdaddress 0 0 15 0
+-- Retrieval info: CONNECT: @address_a 0 0 RAM_ADDRESS_WIDTH_A 0 wraddress 0 0 RAM_ADDRESS_WIDTH_A 
+-- Retrieval info: CONNECT: @address_b 0 0 RAM_ADDRESS_WIDTH_B 0 rdaddress 0 0 RAM_ADDRESS_WIDTH_B
 -- Retrieval info: CONNECT: @clock0 0 0 0 0 clock 0 0 0 0
 -- Retrieval info: CONNECT: @data_a 0 0 64 0 data 0 0 64 0
 -- Retrieval info: CONNECT: @rden_b 0 0 0 0 rden 0 0 0 0
 -- Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 32 0 @q_b 0 0 32 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_module.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_module.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_module.cmp FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_module.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_module_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.inc FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.cmp FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: altera_mf
