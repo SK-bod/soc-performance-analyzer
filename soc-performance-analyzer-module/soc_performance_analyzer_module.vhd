@@ -4,7 +4,7 @@
 -- MODULE: altsyncram 
 
 -- ============================================================
--- File Name: sk_module.vhd
+-- File Name: soc_performance_analyzer.vhd
 -- Megafunction Name(s):
 -- 			altsyncram
 --
@@ -35,21 +35,16 @@
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;	
+use ieee.std_logic_unsigned.all;
+use ieee.math_real.all;
 
 LIBRARY altera_mf;
 USE altera_mf.altera_mf_components.all;
 
-ENTITY sk_module IS
+ENTITY soc_performance_analyzer IS
 	GENERIC
 	(
-		RAM_WORDS_SIZE_A	:	integer :=256;
-		RAM_ADDRESS_WIDTH_A	:	integer :=8;
-		RAM_ADDRESS_WIDTH_A_IN	:	integer :=7;
-		RAM_WORDS_SIZE_B	:	integer	:=512;
-		RAM_ADDRESS_WIDTH_B	:	integer :=9;
-		RAM_ADDRESS_WIDTH_B_IN  :	integer :=8;
-		RAMSIZE_NUMERIC_A	:	integer :=16384	
+		RAM_ADDRESS_WIDTH_B_IN	:	integer	:= 8
 	);
 	PORT
 	(
@@ -66,13 +61,13 @@ ENTITY sk_module IS
 		clk			: in std_logic; 
 		reset_n		: in std_logic
 	);
-END sk_module;
+END soc_performance_analyzer;
 
 
-ARCHITECTURE SYN OF sk_module IS
-
+ARCHITECTURE SYN OF soc_performance_analyzer IS
+	
 	-- signal storing RAM address for next timestamp
-	signal write_address			 	: std_logic_vector (RAM_ADDRESS_WIDTH_A_IN downto 0);
+	signal write_address			 	: std_logic_vector (RAM_ADDRESS_WIDTH_B_IN-1 downto 0);
 	-- signal used to store clock cycles
 	signal counter_timestamp 		: std_logic_vector (47 downto 0);
 	-- signal to store data for timestamp
@@ -89,16 +84,16 @@ BEGIN
 		clock_enable_output_b => "BYPASS",
 		intended_device_family => "Cyclone V",
 		lpm_type => "altsyncram",
-		numwords_a => RAM_WORDS_SIZE_A,
-		numwords_b => RAM_WORDS_SIZE_B,
+		numwords_a => 2**RAM_ADDRESS_WIDTH_B_IN,
+		numwords_b => 2*2**RAM_ADDRESS_WIDTH_B_IN,
 		operation_mode => "DUAL_PORT",
 		outdata_aclr_b => "NONE",
 		outdata_reg_b => "CLOCK0",
 		power_up_uninitialized => "FALSE",
 		rdcontrol_reg_b => "CLOCK0",
 		read_during_write_mode_mixed_ports => "OLD_DATA",
-		widthad_a => RAM_ADDRESS_WIDTH_A,
-		widthad_b => RAM_ADDRESS_WIDTH_B,
+		widthad_a => RAM_ADDRESS_WIDTH_B_IN,
+		widthad_b => RAM_ADDRESS_WIDTH_B_IN+1,
 		width_a => 64,
 		width_b => 32,
 		width_byteena_a => 1
@@ -228,9 +223,9 @@ END SYN;
 -- Retrieval info: CONNECT: @rden_b 0 0 0 0 rden 0 0 0 0
 -- Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 32 0 @q_b 0 0 32 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.cmp FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL sk_module_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer.inc FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer.cmp FALSE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL soc_performance_analyzer_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: altera_mf
